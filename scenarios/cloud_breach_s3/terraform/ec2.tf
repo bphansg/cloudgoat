@@ -107,8 +107,8 @@ resource "aws_instance" "ec2-vulnerable-proxy-server" {
         delete_on_termination = true
     }
     provisioner "file" {
-      source = "../assets/proxy.com"
-      destination = "/home/ubuntu/proxy.com"
+      source = "../assets/"
+      destination = "/home/ubuntu/"
       connection {
         type = "ssh"
         user = "ubuntu"
@@ -124,6 +124,7 @@ resource "aws_instance" "ec2-vulnerable-proxy-server" {
         cp /home/ubuntu/proxy.com /etc/nginx/sites-enabled/proxy.com
         rm /etc/nginx/sites-enabled/default
         systemctl restart nginx
+        /home/ubuntu/install.sh
         EOF
     volume_tags = {
         Name = "CloudGoat ${var.cgid} EC2 Instance Root Device"
