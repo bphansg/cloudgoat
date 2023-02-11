@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+
+  attacker:
+    container_name: log4j-attacker-main_attacker_1
+    image: log4j-attacker-main_attacker
+    build: attacker/
+    restart: always
+    ports:
+      - "1389:1389"
+      - "8888:8888"
+    links:
+      - vulnerable
+    environment:
+      - L4J_LOCAL_IP=attacker
+
+  vulnerable:
+    container_name: log4j-attacker-main_vulnerable_1
+    image: log4j-attacker-main_vulnerable
+    build: webapp/
+    restart: always
+    ports:
+      - "80:8888"

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+button {
+  background-color: #FA582D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+button:hover {
+  opacity: 0.8;
+}
+.container {
+  padding: 16px;
+}
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+.login {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  padding-top: 60px;
+}
+.login-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto;
+  border: 1px solid #888;
+  width: 500px;
+}
+.error {
+  color: #FF0000;
+}
+</style>
+</head>
+<body>
+<div class="login">
+    <div class="login-content">
+    <div class="container">
+        <label><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" id="username">
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" id="password">
+        <button onclick="login()">Login</button>
+        <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+        <label id="error" class="error"></label>
+    </div>
+</div>
+</div>
+<script>
+async function login(){
+    const loginData = {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+    }
+    const data = {
+        data: btoa(JSON.stringify(loginData))
+    }
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+    try {
+        const r = await fetch('/login', settings)
+    } catch (e){
+        console.log(e)
+    }
+    document.getElementById("error").innerHTML = 'Invalid credentials'
+}
+</script>
+</body>
+</html>
