@@ -1,4 +1,4 @@
-FROM golang:1.16.4-alpine
+FROM golang:1.21.13-alpine
 
 RUN apk add --update docker openrc curl python3
 RUN rc-update add docker boot
